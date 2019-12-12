@@ -1,0 +1,24 @@
+.images {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: auto;
+  height: 500px;
+  margin-bottom: 20px;
+}
+
+.image-section {
+  display: flex;
+  width: 250px;
+  height: 300px;
+  border-radius: 10%;
+  margin: 10px;
+}
+
+.descriptions {
+  display: flex;
+  width: 250px;
+  margin: 10px;
+  color: whitesmoke;
+  cursor: pointer;
+}

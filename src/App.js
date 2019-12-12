@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./layouts/NavBar";
+import Home from "./pages/Home";
+import TodoPage from "./pages/TodoPage";
+import AnimeDetails from "./pages/AnimeDetails";
+import "./App.css";
 
 function App() {
+  const [animeDetails, setAnimeDetails] = useState({});
+  // const uniqid = require("uniqid");
+  // const h = useKey("h");
+
+  const passAnimeData = anime => {
+    setAnimeDetails(anime);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/" exact>
+            <Home passAnimeData={anime => passAnimeData(anime)} />
+          </Route>
+          <Route path="/anime/:id" exact>
+            <AnimeDetails animeDetails={animeDetails} />
+          </Route>
+          <Route path="/todo" exact component={TodoPage} />
+        </Switch>
+      </Router>
     </div>
   );
 }
