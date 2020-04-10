@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
+import { LikeContext } from "../../contexts/LikeContext";
 import AnimeInput from "../../components/AnimeInput";
 import ImageFrame from "../../components/ImageFrame";
 import "./style.css";
@@ -33,6 +34,8 @@ function useKey(key) {
 export default function Home(props) {
   const [anime, setAnime] = useState("");
   const [animeInfos, setAnimeInfos] = useState([]);
+  const { addLikedAnime } = useContext(LikeContext);
+  const { likedAnimes } = useContext(LikeContext);
 
   const enter = useKey("enter");
 
@@ -61,11 +64,13 @@ export default function Home(props) {
 
   return (
     <div className="wrapper-div">
+      {console.log(likedAnimes)}
       <AnimeInput queryInput={queryInput} searchInput={() => searchInput()} />
 
       {animeInfos.map(info => {
         return (
           <ImageFrame
+            addAnime={() => addLikedAnime(info)}
             getData={() => getAnimeData(info)}
             image={info.image_url}
             desc={info.synopsis}

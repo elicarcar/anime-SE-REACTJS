@@ -4,7 +4,9 @@ import Navbar from "./layouts/NavBar";
 import Home from "./pages/Home";
 import TodoPage from "./pages/TodoPage";
 import AnimeDetails from "./pages/AnimeDetails";
+import LikeContextProvider from "./contexts/LikeContext";
 import "./App.css";
+import MyFavorites from "./pages/MyFavorites";
 
 function App() {
   const [animeDetails, setAnimeDetails] = useState({});
@@ -17,18 +19,21 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path="/" exact>
-            <Home passAnimeData={anime => passAnimeData(anime)} />
-          </Route>
-          <Route path="/anime/:id" exact>
-            <AnimeDetails animeDetails={animeDetails} />
-          </Route>
-          <Route path="/todo" exact component={TodoPage} />
-        </Switch>
-      </Router>
+      <LikeContextProvider>
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact>
+              <Home passAnimeData={anime => passAnimeData(anime)} />
+            </Route>
+            <Route path="/anime/:id" exact>
+              <AnimeDetails animeDetails={animeDetails} />
+            </Route>
+            <Route path="/todo" exact component={TodoPage} />
+            <Route path="/my-favorites" exact component={MyFavorites} />
+          </Switch>
+        </Router>
+      </LikeContextProvider>
     </div>
   );
 }

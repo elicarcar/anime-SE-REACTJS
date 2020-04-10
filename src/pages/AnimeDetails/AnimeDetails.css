@@ -1,4 +1,29 @@
+.container-detail {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.img-detail {
+  float: left;
+  margin: 20px;
+  width: 200px;
+  height: 300px;
+  border-radius: 10px;
+  border: 1px groove black;
+}
+
+.title.detail {
+  margin: 0;
+  max-height: 100px;
+}
+
+.li-identifiers {
+  font-weight: bolder;
+}
+
 .detailed-info {
-  list-style: none;
   float: right;
+  list-style: none;
+  text-align: initial;
+  align-self: flex-end;
 }

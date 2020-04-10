@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function ImageFrame({ image, alt_text, desc, id, getData }) {
-  const [animeDetail, setAnimeDetail] = useState({});
+export default function ImageFrame({
+  image,
+  alt_text,
+  desc,
+  id,
+  getData,
+  addAnime
+}) {
   return (
     <section className="images">
       <img className="image-section" src={image} alt={alt_text} />
+      <span>
+        <button onClick={addAnime}>+</button>
+      </span>
       <p className="descriptions">
         {desc}
         <span>

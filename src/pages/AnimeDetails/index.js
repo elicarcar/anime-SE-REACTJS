@@ -6,9 +6,13 @@ import uuid from "uuid/v1";
 const AnimeDetails = props => {
   const { id } = useParams();
   return (
-    <div>
-      <img src={props.animeDetails.image_url} alt={props.animeDetails.title} />
-      <h1>{props.title}</h1>
+    <div className="container-detail">
+      <img
+        src={props.animeDetails.image_url}
+        alt={props.animeDetails.title}
+        className="img-detail"
+      />
+      <h1 className="title-detail">{props.animeDetails.title}</h1>
       <ul className="detailed-info">
         <li>
           <span className="li-identifiers">Episodes: </span>
@@ -22,14 +26,14 @@ const AnimeDetails = props => {
           <span className="li-identifiers">Type:</span> {props.animeDetails.tv}
         </li>
         <li>
-          <span className="li-identifiers">Airing</span>
+          <span className="li-identifiers">Airing: </span>
 
           {props.animeDetails.airing === false
             ? "Not aired right now"
             : "Currently aired"}
         </li>
         <li>
-          <span className="li-identifiers">Started:</span>{" "}
+          <span className="li-identifiers">Started:</span>
           {props.animeDetails.start_date}
         </li>
         <li>

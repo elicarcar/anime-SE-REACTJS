@@ -21,6 +21,9 @@ export default function Navbar() {
         <li>
           <Link to="/todo">Todo</Link>
         </li>
+        <li className="fav-anime-li">
+          <Link to="/my-favorites">My favorite animes</Link>
+        </li>
       </ul>
     </nav>
   );

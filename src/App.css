@@ -18,6 +18,10 @@ body {
   list-style: none;
 }
 
+.fav-anime-li {
+  justify-self: flex-end;
+}
+
 .input-div {
   display: flex;
   justify-content: center;
@@ -30,15 +34,17 @@ body {
   height: 30px;
   border: 1px solid rgba(255, 0, 149, 0.473);
   border-radius: 15px 0 0 15px;
+  text-align: center;
 }
 
 .input-div input::placeholder {
   color: rgb(255, 0, 149);
-  align-self: center;
+  font-size: 12px;
+  padding: 10px;
 }
 
 .input-div input:focus {
-  outline: rgba(255, 0, 149, 0.473);
+  outline: none;
   color: rgba(255, 0, 149, 0.473);
 }
 
@@ -46,4 +52,17 @@ body {
   background: rgb(255, 0, 149);
   border: 1px solid rgba(255, 0, 149, 0.473);
   border-radius: 0 15px 15px 0;
+}
+
+.liked-animes {
+  width: 60%;
+  background: white;
+  border-radius: 5%;
+  border: 1px solid rgba(75, 69, 69, 0.678);
+  text-align: justify;
+  margin: 20px auto;
+}
+
+.liked-anime-list {
+  margin: 20px;
 }
