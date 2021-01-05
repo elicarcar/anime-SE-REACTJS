@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { LikeContext } from "../../contexts/LikeContext";
-import "../../App.css";
+import React, { useContext } from 'react'
+import { LikeContext } from '../../contexts/LikeContext'
+import '../../App.scss'
 
 const MyFavorites = () => {
-  const { likedAnimes } = useContext(LikeContext);
+  const { likedAnimes } = useContext(LikeContext)
 
   return (
     <div className="liked-animes">
@@ -17,7 +17,7 @@ const MyFavorites = () => {
         </ol>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MyFavorites;
+export default MyFavorites

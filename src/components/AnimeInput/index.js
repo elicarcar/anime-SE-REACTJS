@@ -1,5 +1,5 @@
-import React from "react";
-import "../../App.css";
+import React from 'react'
+import '../../App.scss'
 
 export default function AnimeInput({ value, queryInput, searchInput }) {
   return (
@@ -9,9 +9,9 @@ export default function AnimeInput({ value, queryInput, searchInput }) {
         onChange={queryInput}
         placeholder="Please type the anime you would like to search"
       />
-      <button onClick={searchInput} style={{ cursor: "pointer" }}>
+      <button onClick={searchInput} style={{ cursor: 'pointer' }}>
         Search
       </button>
     </div>
-  );
+  )
 }
