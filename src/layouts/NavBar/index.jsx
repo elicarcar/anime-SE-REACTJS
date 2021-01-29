@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import AnimeInput from '../../components/AnimeInput'
 import backArrow from '../../icons/back.png'
 import '../../App.scss'
 
@@ -23,6 +24,7 @@ export default function Navbar() {
           <Link to="/my-favorites">My favorite animes</Link>
         </li>
       </ul>
+      <AnimeInput />
     </nav>
   )
 }

@@ -5,6 +5,7 @@ import AnimeInput from '../../components/AnimeInput'
 import ImageFrame from '../../components/ImageFrame'
 import './style.css'
 import AnimeSlider from '../../components/AnimeSlider'
+import { season, currentYear } from '../../utils'
 
 function useKey(key) {
   const [pressed, setPressed] = useState(false)
@@ -35,11 +36,7 @@ function useKey(key) {
 
 export default function Home(props) {
   const [anime, setAnime] = useState('')
-  const [animeInfos, setAnimeInfos] = useState([])
   const [state, dispatch] = useContext(AnimeContext)
-
-  const { addLikedAnime } = useContext(LikeContext)
-  const { likedAnimes } = useContext(LikeContext)
 
   const enter = useKey('enter')
 
@@ -50,46 +47,60 @@ export default function Home(props) {
 
       dispatch({
         type: action,
-        payload: animes.top,
+        payload: animes,
       })
+
+      console.log(animes)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const queryInput = (e) => {
-    const targetedAnime = e.target.value
-    setAnime(targetedAnime)
-  }
+  // const searchInput = useCallback(() => {
+  //   fetchAnimes()
+  // }, [anime])
 
-  const searchInput = useCallback(() => {
-    fetchAnimes()
-  }, [anime])
-
-  const getAnimeData = (anime) => {
-    props.passAnimeData(anime)
-    console.log(anime)
-  }
+  // const getAnimeData = (anime) => {
+  //   props.passAnimeData(anime)
+  //   console.log(anime)
+  // }
 
   useEffect(() => {
     fetchAnimes(
-      'https://api.jikan.moe/v3/top/anime/1/upcoming',
+      'https://api.jikan.moe/v3/top/anime/1/airing',
       'GET_AIRING_ANIMES'
+    )
+    fetchAnimes(
+      'https://api.jikan.moe/v3/top/anime/1/upcoming',
+      'GET_TOP_ANIMES'
+    )
+    fetchAnimes(
+      `https://api.jikan.moe/v3/season/${currentYear}/${season}`,
+      'GET_SEASONAL_ANIMES'
     )
   }, [])
 
-  console.log(state.airing)
-
   return (
     <div className="wrapper-div">
-      <AnimeInput queryInput={queryInput} searchInput={() => searchInput()} />
-      {state.airing.length ? (
-        <AnimeSlider animes={state.airing[0]} />
+      {state.seasonal.length ? (
+        <AnimeSlider title={'Winter'} animes={state.seasonal[0]} />
       ) : (
         <p>Loading...</p>
       )}
 
-      {enter && searchInput()}
+      {state.airing.length ? (
+        <AnimeSlider
+          title={'Animes currenlty airing'}
+          animes={state.airing[0]}
+        />
+      ) : (
+        <p>Loading...</p>
+      )}
+      {state.top.length ? (
+        <AnimeSlider title={'Upcomings'} animes={state.top[0]} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   )
 }

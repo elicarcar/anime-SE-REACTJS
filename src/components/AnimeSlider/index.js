@@ -1,7 +1,8 @@
 import React from 'react'
 import './style.scss'
 import { GrNext, GrPrevious } from 'react-icons/gr'
-export default function AnimeSlider({ animes }) {
+import Title from '../Title'
+export default function AnimeSlider({ animes, title }) {
   return (
     <div className="slider">
       <div className="brackets-outer">
@@ -10,6 +11,7 @@ export default function AnimeSlider({ animes }) {
         </span>
       </div>
 
+      <Title title={title} />
       <div className="slider-inner">
         {animes.map((anime, i) => (
           <figure className="slider-item" id={anime.mal_id} key={i}>

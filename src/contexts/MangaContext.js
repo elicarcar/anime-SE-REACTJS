@@ -1,19 +1,18 @@
 import React, { createContext, useReducer } from 'react'
 import { reducer } from '../reducers/index'
 
-export const AnimeContext = createContext()
+export const MangaContext = createContext()
 
 const initialState = {
   airing: [],
   top: [],
-  seasonal: [],
 }
 
-export const AnimeContextProvider = (props) => {
+export const MangaContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   return (
-    <AnimeContext.Provider value={[state, dispatch]}>
+    <MangaContext.Provider value={[state, dispatch]}>
       {props.children}
-    </AnimeContext.Provider>
+    </MangaContext.Provider>
   )
 }

@@ -7,6 +7,7 @@ import LikeContextProvider from './contexts/LikeContext'
 import { AnimeContextProvider } from './contexts/AnimeContext'
 import './App.scss'
 import MyFavorites from './pages/MyFavorites'
+import { MangaContextProvider } from './contexts/MangaContext'
 
 function App() {
   const [animeDetails, setAnimeDetails] = useState({})
@@ -19,22 +20,24 @@ function App() {
 
   return (
     <div className="App">
-      <AnimeContextProvider>
-        <LikeContextProvider>
-          <Router>
-            <Navbar />
-            <Switch>
-              <Route path="/" exact>
-                <Home passAnimeData={(anime) => passAnimeData(anime)} />
-              </Route>
-              <Route path="/anime/:id" exact>
-                <AnimeDetails animeDetails={animeDetails} />
-              </Route>
-              <Route path="/my-favorites" exact component={MyFavorites} />
-            </Switch>
-          </Router>
-        </LikeContextProvider>
-      </AnimeContextProvider>
+      <MangaContextProvider>
+        <AnimeContextProvider>
+          <LikeContextProvider>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route path="/" exact>
+                  <Home passAnimeData={(anime) => passAnimeData(anime)} />
+                </Route>
+                <Route path="/anime/:id" exact>
+                  <AnimeDetails animeDetails={animeDetails} />
+                </Route>
+                <Route path="/my-favorites" exact component={MyFavorites} />
+              </Switch>
+            </Router>
+          </LikeContextProvider>
+        </AnimeContextProvider>
+      </MangaContextProvider>
     </div>
   )
 }

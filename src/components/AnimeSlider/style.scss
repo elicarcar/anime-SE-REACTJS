@@ -2,6 +2,8 @@
   $self: &;
   overflow: hidden;
   position: relative;
+  margin-top: 40px;
+  scroll-behavior: smooth;
   &::before {
     position: absolute;
     content: ' ';
@@ -26,7 +28,7 @@
 
   .brackets-outer {
     position: absolute;
-    bottom: 50%;
+    bottom: 40%;
     z-index: 3;
 
     &:nth-of-type(1) {
@@ -63,6 +65,8 @@
 
   #{$self}-inner {
     display: flex;
+    overflow-x: scroll;
+
     #{$self}-item {
       cursor: pointer;
       position: relative;

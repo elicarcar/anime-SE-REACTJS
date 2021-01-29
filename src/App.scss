@@ -82,26 +82,27 @@ a {
 .input-div input {
   width: 200px;
   height: 30px;
-  border: 1px solid rgba(255, 0, 149, 0.473);
-  border-radius: 15px 0 0 15px;
+  border: 1px solid rgba(17, 16, 17, 0.473);
+  border-radius: 3px 0 0 3px;
   text-align: center;
 }
 
 .input-div input::placeholder {
-  color: rgb(255, 0, 149);
+  color: rgb(39, 37, 37);
   font-size: 12px;
   padding: 10px;
 }
 
 .input-div input:focus {
   outline: none;
-  color: rgba(255, 0, 149, 0.473);
+  color: rgba(134, 130, 133, 0.473);
 }
 
 .input-div button {
-  background: rgb(255, 0, 149);
-  border: 1px solid rgba(255, 0, 149, 0.473);
-  border-radius: 0 15px 15px 0;
+  background: rgb(78, 78, 78);
+  border: 1px solid rgba(39, 39, 39, 0.473);
+  border-radius: 0 3px 3px 0;
+  color: white;
 }
 
 .liked-animes {
@@ -115,4 +116,10 @@ a {
 
 .liked-anime-list {
   margin: 20px;
+}
+
+.anime-slider-title {
+  color: white;
+  text-align: left;
+  margin-left: 20px;
 }

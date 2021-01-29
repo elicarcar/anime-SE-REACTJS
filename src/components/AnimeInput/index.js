@@ -7,7 +7,7 @@ export default function AnimeInput({ value, queryInput, searchInput }) {
       <input
         value={value}
         onChange={queryInput}
-        placeholder="Please type the anime you would like to search"
+        placeholder="Search anime, manga and more..."
       />
       <button onClick={searchInput} style={{ cursor: 'pointer' }}>
         Search
