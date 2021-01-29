@@ -1,0 +1,1 @@
+export const GET_AIRING_ANIMES = 'GET_AIRING_ANIMES'

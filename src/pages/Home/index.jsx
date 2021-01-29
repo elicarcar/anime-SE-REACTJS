@@ -1,8 +1,10 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { LikeContext } from '../../contexts/LikeContext'
+import { AnimeContext } from '../../contexts/AnimeContext'
 import AnimeInput from '../../components/AnimeInput'
 import ImageFrame from '../../components/ImageFrame'
 import './style.css'
+import AnimeSlider from '../../components/AnimeSlider'
 
 function useKey(key) {
   const [pressed, setPressed] = useState(false)
@@ -34,22 +36,22 @@ function useKey(key) {
 export default function Home(props) {
   const [anime, setAnime] = useState('')
   const [animeInfos, setAnimeInfos] = useState([])
+  const [state, dispatch] = useContext(AnimeContext)
+
   const { addLikedAnime } = useContext(LikeContext)
   const { likedAnimes } = useContext(LikeContext)
 
   const enter = useKey('enter')
 
-  async function fetchAnimes() {
+  async function fetchAnimes(url, action) {
     try {
-      const res = await fetch(
-        `https://api.jikan.moe/v3/search/anime?q=${anime}`
-      )
+      const res = await fetch(url)
       const animes = await res.json()
 
-      console.log(animes.results)
-
-      const { results } = animes
-      setAnimeInfos(results)
+      dispatch({
+        type: action,
+        payload: animes.top,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -69,22 +71,23 @@ export default function Home(props) {
     console.log(anime)
   }
 
+  useEffect(() => {
+    fetchAnimes(
+      'https://api.jikan.moe/v3/top/anime/1/upcoming',
+      'GET_AIRING_ANIMES'
+    )
+  }, [])
+
+  console.log(state.airing)
+
   return (
     <div className="wrapper-div">
       <AnimeInput queryInput={queryInput} searchInput={() => searchInput()} />
-
-      {animeInfos.map((info) => {
-        return (
-          <ImageFrame
-            addAnime={() => addLikedAnime(info)}
-            getData={() => getAnimeData(info)}
-            image={info.image_url}
-            desc={info.synopsis}
-            id={info.mal_id}
-            info={info}
-          />
-        )
-      })}
+      {state.airing.length ? (
+        <AnimeSlider animes={state.airing[0]} />
+      ) : (
+        <p>Loading...</p>
+      )}
 
       {enter && searchInput()}
     </div>
