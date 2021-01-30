@@ -3,9 +3,10 @@ import { LikeContext } from '../../contexts/LikeContext'
 import { AnimeContext } from '../../contexts/AnimeContext'
 import AnimeInput from '../../components/AnimeInput'
 import ImageFrame from '../../components/ImageFrame'
-import './style.css'
+import './style.scss'
 import AnimeSlider from '../../components/AnimeSlider'
 import { season, currentYear } from '../../utils'
+import List from '../../components/List'
 
 function useKey(key) {
   const [pressed, setPressed] = useState(false)
@@ -78,29 +79,62 @@ export default function Home(props) {
       `https://api.jikan.moe/v3/season/${currentYear}/${season}`,
       'GET_SEASONAL_ANIMES'
     )
+
+    fetchAnimes('https://api.jikan.moe/v3/top/anime/1/movie', 'GET_TOP_MOVIES')
   }, [])
 
-  return (
-    <div className="wrapper-div">
-      {state.seasonal.length ? (
-        <AnimeSlider title={'Winter'} animes={state.seasonal[0]} />
-      ) : (
-        <p>Loading...</p>
-      )}
+  console.log(state)
 
-      {state.airing.length ? (
-        <AnimeSlider
-          title={'Animes currenlty airing'}
-          animes={state.airing[0]}
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
-      {state.top.length ? (
-        <AnimeSlider title={'Upcomings'} animes={state.top[0]} />
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+  return (
+    <React.Fragment>
+      <section className="home">
+        <div className="wrapper-div">
+          {state.seasonal.length ? (
+            <AnimeSlider
+              title={`${season} ${currentYear} Anime`}
+              animes={state.seasonal[0]}
+              cut={true}
+              sliceAmount={10}
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+
+          {state.airing.length ? (
+            <AnimeSlider
+              title={'Animes currenlty airing'}
+              animes={state.airing[0]}
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+        <div className="side-list">
+          {state.top.length ? (
+            <List
+              listTitle={'Upcomings'}
+              listItems={state.top[0]}
+              itemType={'anime'}
+              moreInfoPath="/#"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+
+        <div className="side-list">
+          {state.airing.length ? (
+            <List
+              listTitle={'Currenlty Airing'}
+              listItems={state.airing[0]}
+              itemType={'anime'}
+              moreInfoPath="/#"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+      </section>
+    </React.Fragment>
   )
 }

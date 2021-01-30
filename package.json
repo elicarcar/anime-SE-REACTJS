@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "flickity": "^2.2.2",
     "insights-js": "^1.2.10",
     "jikanjs": "^0.7.0",
     "react": "^16.11.0",

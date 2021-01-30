@@ -17,11 +17,10 @@ export default function Navbar() {
           />
         </li>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Anime</Link>
         </li>
-
-        <li className="fav-anime-li">
-          <Link to="/my-favorites">My favorite animes</Link>
+        <li>
+          <Link to="/manga">Manga</Link>
         </li>
       </ul>
       <AnimeInput />

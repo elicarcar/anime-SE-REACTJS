@@ -3,7 +3,7 @@
   overflow: hidden;
   position: relative;
   margin-top: 40px;
-  scroll-behavior: smooth;
+
   &::before {
     position: absolute;
     content: ' ';
@@ -66,12 +66,17 @@
   #{$self}-inner {
     display: flex;
     overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 
     #{$self}-item {
       cursor: pointer;
       position: relative;
       margin: 2px;
       border: 2px groove black;
+      height: 200px;
+
+      scroll-snap-align: start;
 
       &:before {
         opacity: 0;
@@ -80,7 +85,6 @@
       }
 
       img {
-        width: fit-content;
         height: 100%;
       }
 
