@@ -1,6 +1,7 @@
 .home {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(auto, 200px);
   margin: 10px 90px;
 
   .wrapper-div {

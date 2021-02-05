@@ -7,6 +7,7 @@ const initialState = {
   airing: [],
   top: [],
   seasonal: [],
+  movies: [],
 }
 
 export const AnimeContextProvider = (props) => {

@@ -2,6 +2,7 @@ import {
   GET_AIRING_ANIMES,
   GET_TOP_ANIMES,
   GET_SEASONAL_ANIMES,
+  GET_TOP_MOVIES,
 } from '../actions/types'
 
 export const reducer = (state, action) => {
@@ -19,6 +20,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         seasonal: [action.payload.anime],
+      }
+    case GET_TOP_MOVIES:
+      return {
+        ...state,
+        movies: [action.payload.top],
       }
   }
 }

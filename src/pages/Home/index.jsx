@@ -36,7 +36,6 @@ function useKey(key) {
 }
 
 export default function Home(props) {
-  const [anime, setAnime] = useState('')
   const [state, dispatch] = useContext(AnimeContext)
 
   const enter = useKey('enter')
@@ -75,12 +74,13 @@ export default function Home(props) {
       'https://api.jikan.moe/v3/top/anime/1/upcoming',
       'GET_TOP_ANIMES'
     )
+
+    fetchAnimes('https://api.jikan.moe/v3/top/anime/1/movie', 'GET_TOP_MOVIES')
+
     fetchAnimes(
       `https://api.jikan.moe/v3/season/${currentYear}/${season}`,
       'GET_SEASONAL_ANIMES'
     )
-
-    fetchAnimes('https://api.jikan.moe/v3/top/anime/1/movie', 'GET_TOP_MOVIES')
   }, [])
 
   console.log(state)
@@ -95,15 +95,6 @@ export default function Home(props) {
               animes={state.seasonal[0]}
               cut={true}
               sliceAmount={10}
-            />
-          ) : (
-            <p>Loading...</p>
-          )}
-
-          {state.airing.length ? (
-            <AnimeSlider
-              title={'Animes currenlty airing'}
-              animes={state.airing[0]}
             />
           ) : (
             <p>Loading...</p>
