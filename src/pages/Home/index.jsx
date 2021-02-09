@@ -1,58 +1,58 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react'
-import { LikeContext } from '../../contexts/LikeContext'
-import { AnimeContext } from '../../contexts/AnimeContext'
-import AnimeInput from '../../components/AnimeInput'
-import ImageFrame from '../../components/ImageFrame'
-import './style.scss'
-import AnimeSlider from '../../components/AnimeSlider'
-import { season, currentYear } from '../../utils'
-import List from '../../components/List'
+import React, { useState, useCallback, useEffect, useContext } from "react";
+import { LikeContext } from "../../contexts/LikeContext";
+import { AnimeContext } from "../../contexts/AnimeContext";
+import AnimeInput from "../../components/AnimeInput";
+import ImageFrame from "../../components/ImageFrame";
+import "./style.scss";
+import AnimeSlider from "../../components/AnimeSlider";
+import { season, currentYear } from "../../utils";
+import List from "../../components/List";
 
 function useKey(key) {
-  const [pressed, setPressed] = useState(false)
-  const match = (e) => key.toLowerCase() == e.key.toLowerCase()
+  const [pressed, setPressed] = useState(false);
+  const match = (e) => key.toLowerCase() == e.key.toLowerCase();
   const onDown = (e) => {
     if (match(e)) {
-      setPressed(true)
+      setPressed(true);
     }
-  }
+  };
 
   const onUp = (e) => {
     if (match(e)) {
-      setPressed(false)
+      setPressed(false);
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener('keydown', onDown)
-    window.addEventListener('keyup', onUp)
+    window.addEventListener("keydown", onDown);
+    window.addEventListener("keyup", onUp);
     return () => {
-      window.removeEventListener('keydown', onDown)
-      window.removeEventListener('keyup', onUp)
-    }
-  }, [key])
+      window.removeEventListener("keydown", onDown);
+      window.removeEventListener("keyup", onUp);
+    };
+  }, [key]);
 
-  return pressed
+  return pressed;
 }
 
 export default function Home(props) {
-  const [state, dispatch] = useContext(AnimeContext)
+  const [state, dispatch] = useContext(AnimeContext);
 
-  const enter = useKey('enter')
+  const enter = useKey("enter");
 
   async function fetchAnimes(url, action) {
     try {
-      const res = await fetch(url)
-      const animes = await res.json()
+      const res = await fetch(url);
+      const animes = await res.json();
 
       dispatch({
         type: action,
         payload: animes,
-      })
+      });
 
-      console.log(animes)
+      console.log(animes);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -67,23 +67,23 @@ export default function Home(props) {
 
   useEffect(() => {
     fetchAnimes(
-      'https://api.jikan.moe/v3/top/anime/1/airing',
-      'GET_AIRING_ANIMES'
-    )
+      "https://api.jikan.moe/v3/top/anime/1/airing",
+      "GET_AIRING_ANIMES"
+    );
     fetchAnimes(
-      'https://api.jikan.moe/v3/top/anime/1/upcoming',
-      'GET_TOP_ANIMES'
-    )
+      "https://api.jikan.moe/v3/top/anime/1/upcoming",
+      "GET_TOP_ANIMES"
+    );
 
-    fetchAnimes('https://api.jikan.moe/v3/top/anime/1/movie', 'GET_TOP_MOVIES')
+    fetchAnimes("https://api.jikan.moe/v3/top/anime/1/movie", "GET_TOP_MOVIES");
 
     fetchAnimes(
       `https://api.jikan.moe/v3/season/${currentYear}/${season}`,
-      'GET_SEASONAL_ANIMES'
-    )
-  }, [])
+      "GET_SEASONAL_ANIMES"
+    );
+  }, []);
 
-  console.log(state)
+  console.log(state);
 
   return (
     <React.Fragment>
@@ -99,13 +99,23 @@ export default function Home(props) {
           ) : (
             <p>Loading...</p>
           )}
+          {state.movies.length ? (
+            <AnimeSlider
+              title={`Top Movies`}
+              animes={state.movies[0]}
+              cut={true}
+              sliceAmount={10}
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
         <div className="side-list">
           {state.top.length ? (
             <List
-              listTitle={'Upcomings'}
+              listTitle={"Upcomings"}
               listItems={state.top[0]}
-              itemType={'anime'}
+              itemType={"anime"}
               moreInfoPath="/#"
             />
           ) : (
@@ -116,9 +126,9 @@ export default function Home(props) {
         <div className="side-list">
           {state.airing.length ? (
             <List
-              listTitle={'Currenlty Airing'}
+              listTitle={"Currenlty Airing"}
               listItems={state.airing[0]}
-              itemType={'anime'}
+              itemType={"anime"}
               moreInfoPath="/#"
             />
           ) : (
@@ -127,5 +137,5 @@ export default function Home(props) {
         </div>
       </section>
     </React.Fragment>
-  )
+  );
 }
