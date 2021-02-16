@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
-import "./style.scss";
-import { GrNext, GrPrevious } from "react-icons/gr";
-import Title from "../Title";
+import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import './style.scss'
+import { GrNext, GrPrevious } from 'react-icons/gr'
+import Title from '../Title'
 export default function AnimeSlider({
   animes,
   title,
@@ -9,14 +10,14 @@ export default function AnimeSlider({
   sliceAmount = 0,
 }) {
   if (cut) {
-    animes = animes.slice(0, sliceAmount);
+    animes = animes.slice(0, sliceAmount)
   }
 
-  const sliderRef = useRef(null);
+  const sliderRef = useRef(null)
 
   const handleClick = () => {
-    console.log(sliderRef);
-  };
+    console.log(sliderRef)
+  }
 
   return (
     <div className="slider">
@@ -32,7 +33,9 @@ export default function AnimeSlider({
           {animes.map((anime, i) => (
             <figure className="slider-item" id={anime.mal_id} key={i}>
               <img src={anime.image_url} alt={anime.title} />
-              <figcaption>{anime.title}</figcaption>
+              <figcaption>
+                <Link to={`anime/${anime.mal_id}`}> {anime.title} </Link>
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -44,5 +47,5 @@ export default function AnimeSlider({
         </span>
       </div>
     </div>
-  );
+  )
 }

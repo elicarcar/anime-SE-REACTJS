@@ -1,10 +1,30 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import "./AnimeDetails.css";
-import uuid from "uuid/v1";
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { fetchAnimeInfo, fetchAll } from '../../utils'
+import './AnimeDetails.css'
+import uuid from 'uuid/v1'
 
-const AnimeDetails = props => {
-  const { id } = useParams();
+const AnimeDetails = (props) => {
+  const { id } = useParams()
+  const url = 'https://api.jikan.moe/v3/anime'
+  useEffect(() => {
+    // const urls = [
+    //   fetchAnimeInfo(url, id, '/'),
+    //   fetchAnimeInfo(url, id, 'characters_staff'),
+    //   fetchAnimeInfo(url, id, 'moreinfo'),
+    // ]
+
+    const urls = [
+      `${url}/${id}/`,
+      `${url}/${id}/characters_staff`,
+      `${url}/${id}/moreinfo`,
+    ]
+
+    fetchAll(urls)
+  })
+
+  console.log(id)
+  console.log(props)
   return (
     <div className="container-detail">
       <img
@@ -29,21 +49,21 @@ const AnimeDetails = props => {
           <span className="li-identifiers">Airing: </span>
 
           {props.animeDetails.airing === false
-            ? "Not aired right now"
-            : "Currently aired"}
+            ? 'Not aired right now'
+            : 'Currently aired'}
         </li>
         <li>
           <span className="li-identifiers">Started:</span>
           {props.animeDetails.start_date}
         </li>
         <li>
-          <span className="li-identifiers">Ended:</span>{" "}
+          <span className="li-identifiers">Ended:</span>{' '}
           {props.animeDetails.end_date}
         </li>
       </ul>
       <p>{props.animeDetails.synopsis}</p>
     </div>
-  );
-};
+  )
+}
 
-export default AnimeDetails;
+export default AnimeDetails

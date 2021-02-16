@@ -21,3 +21,23 @@ function getCurrentSeason() {
 }
 
 getCurrentSeason()
+
+export const fetchAnimeInfo = async (url, id, path = '') => {
+  try {
+    const data = await fetch(`${url}/${id}/${path}`)
+    return data
+  } catch (error) {
+    return error
+  }
+}
+
+export const fetchAll = (urls) => {
+  // Promise.all(urls.map((u) => fetch(u))).then((res) => {
+  //   console.log(res)
+  // })
+  Promise.all(urls)
+    .then((responses) => {
+      Promise.all(responses.map((r) => fetch(r)))
+    })
+    .then((data) => console.log(data))
+}
