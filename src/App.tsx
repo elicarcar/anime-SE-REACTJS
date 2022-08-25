@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './layouts/NavBar'
 import Home from './pages/Home'
@@ -10,11 +10,13 @@ import MyFavorites from './pages/MyFavorites'
 import { MangaContextProvider } from './contexts/MangaContext'
 
 function App() {
-  const [animeDetails, setAnimeDetails] = useState({})
+  const [animeDetails, setAnimeDetails] = useState<any>()
   // const uniqid = require("uniqid");
   // const h = useKey("h");
 
-  const passAnimeData = (anime) => {
+  // TODO: make all any types a consistent and specific type
+
+  const passAnimeData = (anime:any) => {
     setAnimeDetails(anime)
   }
 
@@ -27,10 +29,10 @@ function App() {
               <Navbar />
               <Switch>
                 <Route path="/" exact>
-                  <Home passAnimeData={(anime) => passAnimeData(anime)} />
+                  <Home anime={(anime:any) => passAnimeData(anime)} />
                 </Route>
                 <Route path="/anime/:id" exact>
-                  <AnimeDetails animeDetails={animeDetails} />
+                  <AnimeDetails {...animeDetails} />
                 </Route>
                 <Route path="/my-favorites" exact component={MyFavorites} />
               </Switch>

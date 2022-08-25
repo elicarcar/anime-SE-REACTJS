@@ -5,7 +5,7 @@ import {
   GET_TOP_MOVIES,
 } from '../actions/types'
 
-export const reducer = (state, action) => {
+export const reducer = (state:any, action:any) => {
   switch (action.type) {
     case GET_AIRING_ANIMES:
       const cutAir = action.payload.top.slice(0, 5)

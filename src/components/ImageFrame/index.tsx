@@ -2,6 +2,15 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
+type Props = {
+  image:string,
+  alt_text:string,
+  desc:string,
+  id:string,
+  getData: () => void,
+  addAnime: () => void
+}
+
 export default function ImageFrame({
   image,
   alt_text,
@@ -9,7 +18,7 @@ export default function ImageFrame({
   id,
   getData,
   addAnime
-}) {
+}: Props) {
   return (
     <section className="images">
       <img className="image-section" src={image} alt={alt_text} />

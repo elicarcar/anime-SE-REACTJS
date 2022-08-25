@@ -1,14 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function List({ listTitle, listItems, itemType, moreInfoPath }) {
+type Props = {
+  listTitle: string, 
+  listItems:any, 
+  itemType:any, 
+  moreInfoPath:string
+}
+
+export default function List({ listTitle, listItems, itemType, moreInfoPath }: Props) {
   return (
     <div className="list">
       <div className="list-title">
         <h5>{listTitle}</h5> <Link to={moreInfoPath}>More Info</Link>
       </div>
       <ul>
-        {listItems.map((item) => {
+        {listItems.map((item:any) => {
           return (
             <li>
               <img src={item.image_url} alt={item.title} />

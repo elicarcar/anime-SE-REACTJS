@@ -1,23 +1,20 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
-import { LikeContext } from "../../contexts/LikeContext";
-import { AnimeContext } from "../../contexts/AnimeContext";
-import AnimeInput from "../../components/AnimeInput";
-import ImageFrame from "../../components/ImageFrame";
+import React, { useState, useEffect } from "react";
+import {  useAnime } from "../../contexts/AnimeContext";
 import "./style.scss";
 import AnimeSlider from "../../components/AnimeSlider";
 import { season, currentYear } from "../../utils";
 import List from "../../components/List";
 
-function useKey(key) {
+function useKey(key:string) {
   const [pressed, setPressed] = useState(false);
-  const match = (e) => key.toLowerCase() == e.key.toLowerCase();
-  const onDown = (e) => {
+  const match = (e:KeyboardEvent) => key.toLowerCase() === e.key.toLowerCase();
+  const onDown = (e:KeyboardEvent) => {
     if (match(e)) {
       setPressed(true);
     }
   };
 
-  const onUp = (e) => {
+  const onUp = (e:KeyboardEvent) => {
     if (match(e)) {
       setPressed(false);
     }
@@ -35,14 +32,15 @@ function useKey(key) {
   return pressed;
 }
 
-export default function Home(props) {
-  const [state, dispatch] = useContext(AnimeContext);
+ const Home = (anime: {anime:any}) : JSX.Element => {
+  const {state, dispatch} = useAnime()
 
+  
   const enter = useKey("enter");
 
-  async function fetchAnimes(url, action) {
+  async function fetchAnimes(url:string, action:string) {
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, {cache:'force-cache'});
       const animes = await res.json();
 
       dispatch({
@@ -139,3 +137,5 @@ export default function Home(props) {
     </React.Fragment>
   );
 }
+
+export default Home
